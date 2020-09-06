@@ -14,6 +14,7 @@ import {
   createTextMessage,
 } from './utils/MessageUtils';
 import MessageList from './components/MessageList';
+import Toolbar from './components/Toolbar';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,6 +60,7 @@ export default class App extends React.Component {
         }),
       ],
       fullscreenImageId: null,
+      isInputFocused: false,
     };
   }
 
@@ -85,6 +87,18 @@ export default class App extends React.Component {
 
   dismissFullscreenImage = () => {
     this.setState({ fullscreenImageId: null });
+  };
+
+  handleSubmit = (text) => {
+    const { messages } = this.state;
+
+    this.setState({
+      messages: [createTextMessage(text), ...messages],
+    });
+  };
+
+  handleChangeFocus = (isFocused) => {
+    this.setState({ isInputFocused: isFocused });
   };
 
   handlePressMessage = ({ id, type }) => {
@@ -114,7 +128,10 @@ export default class App extends React.Component {
         );
         break;
       case 'image':
-        this.setState({ fullscreenImageId: id });
+        this.setState({
+          fullscreenImageId: id,
+          isInputFocused: false,
+        });
         break;
       default:
         break;
@@ -134,12 +151,22 @@ export default class App extends React.Component {
     );
   }
 
-  renderInputMethodEditor() {
-    return <View style={styles.inputMethodEditor} />;
+  renderToolbar() {
+    const { isInputFocused } = this.state;
+
+    return (
+      <View style={styles.toolbar}>
+        <Toolbar
+          isFocused={isInputFocused}
+          onSubmit={this.handleSubmit}
+          onChangeFocus={this.handleChangeFocus}
+        />
+      </View>
+    );
   }
 
-  renderToolbar() {
-    return <View style={styles.toolbar} />;
+  renderInputMethodEditor() {
+    return <View style={styles.inputMethodEditor} />;
   }
 
   renderFullscreenImage = () => {
