@@ -89,6 +89,26 @@ export default class App extends React.Component {
     this.setState({ fullscreenImageId: null });
   };
 
+  handlePressToolbarLocation = () => {
+    const { messages } = this.state;
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const {
+        coords: { latitude, longitude },
+      } = position;
+
+      this.setState({
+        messages: [
+          createLocationMessage({
+            latitude,
+            longitude,
+          }),
+          ...messages,
+        ],
+      });
+    });
+  };
+
   handleSubmit = (text) => {
     const { messages } = this.state;
 
@@ -160,6 +180,7 @@ export default class App extends React.Component {
           isFocused={isInputFocused}
           onSubmit={this.handleSubmit}
           onChangeFocus={this.handleChangeFocus}
+          onPressLocation={this.handlePressToolbarLocation}
         />
       </View>
     );
