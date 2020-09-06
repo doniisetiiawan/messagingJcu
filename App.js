@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Status from './components/Status';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +38,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Status />
         {this.renderMessageList()}
         {this.renderToolbar()}
         {this.renderInputMethodEditor()}
