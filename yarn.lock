@@ -2771,6 +2771,11 @@ expo-asset@~8.1.7:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-cameraroll@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/expo-cameraroll/-/expo-cameraroll-1.0.1.tgz#1f2496421b1eff0c9377b2e955f950d1f635b5ad"
+  integrity sha512-hBURF52vKXbwVguIkcdLWfEhxK3lZYoN9xGf26CdHvXEh3yGA4LS/tgQgShbYhc+bqJl1sgip2v+ZgxKxKZXgg==
+
 expo-constants@^9.1.1, expo-constants@~9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
@@ -2828,6 +2833,11 @@ expo-location@~8.2.1:
   integrity sha512-MixKapt3nijAxyjIISscBzdKi8bwh0H/dWYsL2mCofrjguFHOh2gP07h95902lekb7NVqybl5AIQRW5cvrG4rQ==
   dependencies:
     invariant "^2.2.4"
+
+expo-media-library@~8.2.1:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/expo-media-library/-/expo-media-library-8.2.1.tgz#2296298dfcf2b19b56c201cb62b2b67c197bede0"
+  integrity sha512-V0XDewHE7MFgwNAUZlruAabMCxM9uf9FfmgKIcoolWq/HGTC0GmwqN1QZIrKEejkqQLJWbUP8HoBWGx7IXz3ng==
 
 expo-permissions@~9.0.1:
   version "9.0.1"

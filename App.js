@@ -15,6 +15,7 @@ import {
 } from './utils/MessageUtils';
 import MessageList from './components/MessageList';
 import Toolbar from './components/Toolbar';
+import ImageGrid from './components/ImageGrid';
 
 const styles = StyleSheet.create({
   container: {
@@ -109,6 +110,14 @@ export default class App extends React.Component {
     });
   };
 
+  handlePressImage = (uri) => {
+    const { messages } = this.state;
+
+    this.setState({
+      messages: [createImageMessage(uri), ...messages],
+    });
+  };
+
   handleSubmit = (text) => {
     const { messages } = this.state;
 
@@ -187,7 +196,11 @@ export default class App extends React.Component {
   }
 
   renderInputMethodEditor() {
-    return <View style={styles.inputMethodEditor} />;
+    return (
+      <View style={styles.inputMethodEditor}>
+        <ImageGrid onPressImage={this.handlePressImage} />
+      </View>
+    );
   }
 
   renderFullscreenImage = () => {
