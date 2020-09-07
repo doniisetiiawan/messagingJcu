@@ -54,7 +54,7 @@ class MessagingContainer extends React.Component {
       onChangeInputMethod(INPUT_METHOD.NONE);
     }
 
-    const { keyboardAnimationDuration } = nextProps;
+    // const { keyboardAnimationDuration } = nextProps;
 
     // Animate between states
     const animation = LayoutAnimation.create(
@@ -130,7 +130,7 @@ MessagingContainer.propTypes = {
   keyboardVisible: PropTypes.bool.isRequired,
   keyboardWillShow: PropTypes.bool.isRequired,
   keyboardWillHide: PropTypes.bool.isRequired,
-  keyboardAnimationDuration: PropTypes.number.isRequired,
+  // keyboardAnimationDuration: PropTypes.number.isRequired,
   inputMethod: PropTypes.oneOf(Object.values(INPUT_METHOD))
     .isRequired,
   onChangeInputMethod: PropTypes.func,
