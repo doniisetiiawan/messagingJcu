@@ -16,6 +16,11 @@ import {
 import MessageList from './components/MessageList';
 import Toolbar from './components/Toolbar';
 import ImageGrid from './components/ImageGrid';
+import MessagingContainer, {
+  INPUT_METHOD,
+} from './components/MessagingContainer';
+import MeasureLayout from './components/MeasureLayout';
+import KeyboardState from './components/KeyboardState';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +67,7 @@ export default class App extends React.Component {
       ],
       fullscreenImageId: null,
       isInputFocused: false,
+      inputMethod: INPUT_METHOD.NONE,
     };
   }
 
@@ -88,6 +94,13 @@ export default class App extends React.Component {
 
   dismissFullscreenImage = () => {
     this.setState({ fullscreenImageId: null });
+  };
+
+  handlePressToolbarCamera = () => {
+    this.setState({
+      isInputFocused: false,
+      inputMethod: INPUT_METHOD.CUSTOM,
+    });
   };
 
   handlePressToolbarLocation = () => {
@@ -128,6 +141,10 @@ export default class App extends React.Component {
 
   handleChangeFocus = (isFocused) => {
     this.setState({ isInputFocused: isFocused });
+  };
+
+  handleChangeInputMethod = (inputMethod) => {
+    this.setState({ inputMethod });
   };
 
   handlePressMessage = ({ id, type }) => {
@@ -189,19 +206,18 @@ export default class App extends React.Component {
           isFocused={isInputFocused}
           onSubmit={this.handleSubmit}
           onChangeFocus={this.handleChangeFocus}
+          onPressCamera={this.handlePressToolbarCamera}
           onPressLocation={this.handlePressToolbarLocation}
         />
       </View>
     );
   }
 
-  renderInputMethodEditor() {
-    return (
-      <View style={styles.inputMethodEditor}>
-        <ImageGrid onPressImage={this.handlePressImage} />
-      </View>
-    );
-  }
+  renderInputMethodEditor = () => (
+    <View style={styles.inputMethodEditor}>
+      <ImageGrid onPressImage={this.handlePressImage} />
+    </View>
+  );
 
   renderFullscreenImage = () => {
     const { messages, fullscreenImageId } = this.state;
@@ -230,12 +246,32 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { inputMethod } = this.state;
+
     return (
       <View style={styles.container}>
         <Status />
-        {this.renderMessageList()}
-        {this.renderToolbar()}
-        {this.renderInputMethodEditor()}
+        <MeasureLayout>
+          {(layout) => (
+            <KeyboardState layout={layout}>
+              {(keyboardInfo) => (
+                <MessagingContainer
+                  {...keyboardInfo}
+                  inputMethod={inputMethod}
+                  onChangeInputMethod={
+                    this.handleChangeInputMethod
+                  }
+                  renderInputMethodEditor={
+                    this.renderInputMethodEditor
+                  }
+                >
+                  {this.renderMessageList()}
+                  {this.renderToolbar()}
+                </MessagingContainer>
+              )}
+            </KeyboardState>
+          )}
+        </MeasureLayout>
         {this.renderFullscreenImage()}
       </View>
     );
